@@ -5,15 +5,15 @@ from __future__ import annotations
 import datetime
 import logging
 
-from custom_components.ticktick.coordinator import TickTickCoordinator
-
+from homeassistant.components.http import async_import_module
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, SupportsResponse
-from homeassistant.helpers import aiohttp_client, config_entry_oauth2_flow
+from homeassistant.helpers import aiohttp_client
 
 from . import api
 from .const import DOMAIN
+from .coordinator import TickTickCoordinator
 from .service_handlers import (
     handle_complete_task,
     handle_create_task,
@@ -35,6 +35,10 @@ PLATFORMS = [Platform.TODO]
 async def async_setup_entry(hass: HomeAssistant, entry: TickTickConfigEntry) -> bool:
     """Set up TickTick Integration from a config entry."""
 
+    config_entry_oauth2_flow = await async_import_module(
+        hass, "homeassistant.helpers.config_entry_oauth2_flow"
+    )
+
     implementation = (
         await config_entry_oauth2_flow.async_get_config_entry_implementation(
             hass, entry
@@ -44,12 +48,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: TickTickConfigEntry) -> 
     session = config_entry_oauth2_flow.OAuth2Session(hass, entry, implementation)
 
     # Using an aiohttp-based API lib
-    entry.runtime_data = api.AsyncConfigEntryAuth(
-        aiohttp_client.async_get_clientsession(hass), session
-    )
-
+    aiohttp_session = aiohttp_client.async_get_clientsession(hass)
+    entry.runtime_data = api.AsyncConfigEntryAuth(aiohttp_session, session)
     access_token = await entry.runtime_data.async_get_access_token()
-    tickTickApiClient = TickTickAPIClient(access_token)
+
+    tickTickApiClient = TickTickAPIClient(access_token, aiohttp_session)
 
     await register_coordiantor(hass, tickTickApiClient, entry, access_token)
     await register_services(hass, tickTickApiClient)
