@@ -6,6 +6,10 @@
 
 Integration implements [TickTick Open API](https://developer.ticktick.com/docs#/openapi) with support for [To-do list](https://www.home-assistant.io/integrations/todo/) entities and exposes it as services in Home Assistant, allowing you to manage your tasks and projects programmatically 😎
 
+## Buy me a coffee or beer 🍻
+<a href="https://paypal.me/hantick" target="_blank" rel="noopener noreferrer">
+    <img src="https://www.paypalobjects.com/marketing/web/logos/paypal-mark-color.svg" alt="PayPal" height="40"></a>
+
 ## Installation
 
 1. Navigate to [TickTick Developer](https://developer.ticktick.com/manage) and click `New App`
