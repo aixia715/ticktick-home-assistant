@@ -161,7 +161,7 @@ create_project:
     color:
       name: Project Color
       description: "Color of the project"
-      example: #F18181
+      example: "#F18181"
       selector:
         text: null
     sortOrder:
