@@ -86,8 +86,7 @@ create_task:
       name: Sort Order
       description: "The order of the task."
       selector:
-        number:
-          min: 0
+        number: 0
 complete_task:
   name: Complete Task
   description: "Sets a task as done, completes a task in TickTick"
@@ -167,8 +166,7 @@ create_project:
       name: Sort Order
       description: "Sort order value of the project."
       selector:
-        number:
-          min: 0
+        number: 0
     viewMode:
       name: View Mode
       description: "View mode of the project."
