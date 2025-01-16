@@ -130,6 +130,7 @@ get_projects:
   name: Get Projects
   description: "Returns a list of your projects basic information from TickTick"
 get_project:
+  name: Get Project
   description: "Returns a project by Project ID basic information from TickTick"
   fields:
     projectId:
@@ -140,7 +141,8 @@ get_project:
       selector:
         text: null
 get_detailed_project:
-  description: "Returns a project by Project ID detailed information from TickTick"
+  name: Get Project with tasks
+  description: "Returns a project by Project ID and its tasks information from TickTick"
   fields:
     projectId:
       name: Project ID
@@ -150,6 +152,7 @@ get_detailed_project:
       selector:
         text: null
 create_project:
+  name: Create project
   description: "Creates a project in TickTick."
   fields:
     name:
@@ -190,6 +193,7 @@ create_project:
             - TASK
             - NOTE
 delete_project:
+  name: Delete Project
   description: "Deletes a project by Project ID from TickTick"
   fields:
     projectId:
