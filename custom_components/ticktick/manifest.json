@@ -10,12 +10,12 @@
     "http"
   ],
   "documentation": "https://github.com/Hantick/ticktick-home-assistant",
-  "issue_tracker": "https://github.com/Hantick/ticktick-home-assistant/issues",
   "homekit": {},
+  "integration_type": "service",
   "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Hantick/ticktick-home-assistant/issues",
   "requirements": [],
   "ssdp": [],
-  "zeroconf": [],
-  "integration_type": "service",
-  "version": "2.0.4"
+  "version": "2.0.4",
+  "zeroconf": []
 }
