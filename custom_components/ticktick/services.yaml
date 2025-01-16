@@ -109,7 +109,6 @@ complete_task:
 delete_task:
   name: Delete Task
   description: "Deletes a task from TickTick"
-  icon: mdi:delete
   fields:
     projectId:
       name: Project ID
