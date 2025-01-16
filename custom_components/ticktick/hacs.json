@@ -1,5 +1,5 @@
 {
   "name": "Home Assistant TickTick Integration",
-  "content_in_root": true,
-  "country": ["PL"]
+  "country": ["PL"],
+  "render_readme": true
 }
