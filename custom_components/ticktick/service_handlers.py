@@ -5,7 +5,10 @@ from datetime import datetime
 from typing import Any, TypeVar
 from zoneinfo import ZoneInfo
 
-from custom_components.ticktick.ticktick_api_python.models.task import Task
+from custom_components.ticktick.ticktick_api_python.models.task import (
+    Task,
+    TaskPriority,
+)
 
 from homeassistant.core import ServiceCall
 from homeassistant.util import dt as dt_util
@@ -64,6 +67,11 @@ async def _create_handler(
                     args["startDate"] = _sanitize_date(
                         args["startDate"], args["timeZone"]
                     )
+                if "priority" in args and isinstance(args["priority"], str):
+                    try:
+                        args["priority"] = TaskPriority[args["priority"]]
+                    except Exception:
+                        args["priority"] = None
                 instance = type(**args)
                 response = await client_method(instance, returnAsJson=True)
             else:

@@ -48,7 +48,6 @@ create_task:
     isAllDay:
       name: Lasts all day
       description: "Flag indicating Whether the task is all day."
-      default: false
       selector:
         boolean: null
     startDate:
@@ -78,15 +77,19 @@ create_task:
     priority:
       name: Priority
       description: "The priority of the task."
-      default: 0
       selector:
-        number:
-          min: 0
+        select:
+          options:
+            - LOW
+            - MEDIUM
+            - HIGH
     sortOrder:
       name: Sort Order
       description: "The order of the task."
       selector:
-        number: 0
+        number:
+          min: 0
+          max: 1000
 complete_task:
   name: Complete Task
   description: "Sets a task as done, completes a task in TickTick"
@@ -166,7 +169,9 @@ create_project:
       name: Sort Order
       description: "Sort order value of the project."
       selector:
-        number: 0
+        number:
+          min: 0
+          max: 1000
     viewMode:
       name: View Mode
       description: "View mode of the project."
