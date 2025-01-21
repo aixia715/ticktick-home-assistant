@@ -36,13 +36,13 @@ def _map_task(
     """Convert a TodoItem to Task."""
     modified = False
     if api_task:
-        if item.summary != api_task.title:
+        if (item.summary or "").strip() != (api_task.title or "").strip():
             api_task.title = item.summary
             modified = True
-        if item.description != api_task.content:
+        if (item.description or "").strip() != (api_task.content or "").strip():
             api_task.content = item.description
             modified = True
-        if item.due != api_task.dueDate:
+        if (item.due or "").strip() != (api_task.dueDate or "").strip():
             api_task.dueDate = item.due
             modified = True
         return api_task, modified
@@ -125,7 +125,7 @@ class TickTickTodoListEntity(CoordinatorEntity[TickTickCoordinator], TodoListEnt
     async def async_update_todo_item(self, item: TodoItem) -> None:
         """Update a To-do item."""
 
-        async def process_status_change() -> None:
+        async def process_status_change() -> bool:
             if item.status is not None:
                 # Only update status if changed
                 for existing_item in self._attr_todo_items or ():
@@ -137,8 +137,10 @@ class TickTickTodoListEntity(CoordinatorEntity[TickTickCoordinator], TodoListEnt
                             await self.coordinator.api.complete_task(
                                 projectId=self._project_id, taskId=item.uid
                             )
+                            return True
                         # else:
                         # Not supported by TickTick as they don't return completed tasks
+            return False
 
         projects_with_tasks = self.coordinator.data
         api_task = next(
@@ -152,15 +154,14 @@ class TickTickTodoListEntity(CoordinatorEntity[TickTickCoordinator], TodoListEnt
             None,
         )
 
+        if await process_status_change():  # This should be changed if completing the task will support also changing description etc.
+            await self.coordinator.async_refresh()
+            return
+
         mapped_task, is_modified = _map_task(item, self._project_id, api_task)
 
-        updated = False
         if is_modified:
             await self.coordinator.api.update_task(mapped_task)
-            updated = True
-
-        if not updated:
-            await process_status_change()
 
         await self.coordinator.async_refresh()
 
