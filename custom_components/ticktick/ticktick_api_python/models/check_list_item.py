@@ -1,12 +1,16 @@
 from datetime import datetime
-from enum import Enum
+from enum import IntFlag
 
 
-class TaskStatus(Enum):
+class TaskStatus(IntFlag):
     """Enum for a Task status."""
 
     NORMAL = 0
-    COMPLETED = 2
+    COMPLETED_1 = 1
+    COMPLETED_2 = 2
+    COMPLETED = (
+        COMPLETED_1 | COMPLETED_2
+    )  # Somehow TickTick uses 1 as completed in CheckListItem and 2 in Task
 
 
 class CheckListItem:
@@ -40,9 +44,7 @@ class CheckListItem:
         """Create a CheckListItem instance from a dictionary."""
 
         return CheckListItem(
-            title=data.get("title")
-            if data.get("title")
-            else "Unnamed SubTask",
+            title=data.get("title") if data.get("title") else "Unnamed SubTask",
             id=data.get("id"),
             sortOrder=data.get("sortOrder"),
             isAllDay=data.get("isAllDay"),

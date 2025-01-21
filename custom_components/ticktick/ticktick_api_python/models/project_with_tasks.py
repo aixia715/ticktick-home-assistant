@@ -21,7 +21,11 @@ class ProjectWithTasks:
         """Create a ProjectWithTasks instance from a dictionary."""
         project = Project.from_dict(data["project"])
         tasks = (
-            [Task.from_dict(task) for task in data.get("tasks", [])]
+            [
+                Task.from_dict(task)
+                for task in data.get("tasks", [])
+                if task.get("status") in (0, "0", None) # Filtering out status 1 and 2 as it's not supported in HomeAssistant
+            ]
             if data.get("tasks")
             else None
         )
