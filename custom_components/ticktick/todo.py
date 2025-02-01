@@ -78,6 +78,7 @@ class TickTickTodoListEntity(CoordinatorEntity[TickTickCoordinator], TodoListEnt
         self._project_id = project_id
         self._attr_unique_id = f"{config_entry_id}-{project_id}"
         self._attr_name = project_name
+        self._attr_todo_items = []
 
     @callback
     def _handle_coordinator_update(self) -> None:

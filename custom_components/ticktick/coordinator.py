@@ -52,9 +52,7 @@ class TickTickCoordinator(DataUpdateCoordinator[list[ProjectWithTasks]]):
                 for project in self._projects
             ]
 
-            projects_with_tasks = await asyncio.gather(*fetch_projects_with_tasks)
-
-            return projects_with_tasks
+            return await asyncio.gather(*fetch_projects_with_tasks)
         except Exception as err:
             raise UpdateFailed(f"Error communicating with API: {err}") from err
 

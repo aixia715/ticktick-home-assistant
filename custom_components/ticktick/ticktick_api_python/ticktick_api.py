@@ -75,7 +75,8 @@ class TickTickAPIClient:
         mappedResponse = [Project.from_dict(project) for project in response]
         filtered_projects = list(
             filter(
-                lambda project: project.kind == Kind.TASK, mappedResponse
+                lambda project: project.kind == Kind.TASK and not project.closed,
+                mappedResponse,
             )  # Filtering out for now Notes
         )
         return filtered_projects
@@ -115,5 +116,5 @@ class TickTickAPIClient:
                 return {"status": "Success"}
             return json_data
         raise Exception(  # noqa: TRY002
-            f"Unsucessful response from TickTick, status code: {response.status}"
+            f"Unsucessful response from TickTick, status code: {response.status}, content: {await response.json()}"
         )
