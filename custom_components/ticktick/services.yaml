@@ -74,6 +74,13 @@ create_task:
       description: "Recurring rules of the task."
       selector:
         text: null
+    reminders:
+      name: Reminders
+      description: "Reminders triggers for a task in iCalendar format i.e TRIGGER:P0DT9H0M0S"
+      example: "TRIGGER:P0DT9H0M0S"
+      selector:
+        text:
+          multiple: true
     priority:
       name: Priority
       description: "The priority of the task."
