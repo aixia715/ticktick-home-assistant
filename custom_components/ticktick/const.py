@@ -2,9 +2,9 @@
 
 DOMAIN = "ticktick"
 
-OAUTH2_AUTHORIZE = "https://ticktick.com/oauth/authorize"
-OAUTH2_TOKEN = "https://ticktick.com/oauth/token"
-TICKTICK_HOST = "api.ticktick.com"
+OAUTH2_AUTHORIZE = "https://dida365.com/oauth/authorize"
+OAUTH2_TOKEN = "https://dida365.com/oauth/token"
+TICKTICK_HOST = "api.dida365.com"
 API = "open/v1"
 BASE_API_URL = f"{TICKTICK_HOST}/{API}"
 
